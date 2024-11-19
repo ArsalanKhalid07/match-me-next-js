@@ -3,17 +3,17 @@ import React from 'react'
 import {Card, CardHeader, CardBody, Input,Button} from "@nextui-org/react";
 import { GiPadlock } from "react-icons/gi";
 import {useForm,SubmitHandler} from "react-hook-form";
-import { loginSchema, LoginSchema } from '@/lib/Schamas/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema, RegisterSchema } from '@/lib/Schamas/RegistrationSchema';
 
 
 
 const LoginForm = () => {
-  const {register,handleSubmit,formState:{isValid,errors}} = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
-      mode: "onTouched"
+  const {register,handleSubmit,formState:{isValid,errors}} = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+    mode: "onTouched"
   })
-  const onSubmit = (data: LoginSchema) => console.log(data); 
+  const onSubmit = (data: RegisterSchema) => console.log(data); 
   return (
     <Card className='w-3/5 mx-auto' >
         <CardHeader className='flex flex-col items-center justify-center'>
@@ -21,7 +21,7 @@ const LoginForm = () => {
                 <div className='flex flex-row items-center gap-3'>
                     <GiPadlock size={30} />
                     <h1 className='text-3xl font-semibold'>
-                    Login
+                    Register
                     </h1>
                 </div>
                 <p className="text-neutral-500">
@@ -32,7 +32,16 @@ const LoginForm = () => {
         <CardBody>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className='space-y-4'>
-                
+              <Input 
+                  defaultValue=''
+                  label="Name"
+                  variant='bordered'
+                  {...register("name")}
+                  isInvalid={!!errors.name}
+                  errorMessage={
+                    errors.name?.message as string
+                  }
+                />
                 <Input 
                   defaultValue=''
                   label="Email"
@@ -62,7 +71,7 @@ const LoginForm = () => {
                   type='submit'
                   isDisabled={!isValid}
                 >
-                  Login
+                  Register
                 </Button>
 
               </div>

@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
       <TopNav />
 
-      <Providers >
+      <Providers  >
          {children}
       </Providers>
       </body>
